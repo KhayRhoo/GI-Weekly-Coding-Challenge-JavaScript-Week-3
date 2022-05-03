@@ -24,59 +24,82 @@ console.log(sharePizza(2));
 console.log(sharePizza(3));
 
 //HARD
-
-const pii = {
-    name : 'Khayla',
-    ssn : 123456789
+function safe(){
+    function security(){
+        const pii = { //Object: Personally Identifiable Information
+            name : 'Khayla', //Property 1: Accessible
+            ssn : 123456789, //Property 2: Not Accessible
+            getName(){
+                return this.name;
+            }
+        };
+        return pii.getName();
+    }
+    return security();
 }
 
-console.log(pii);
-/*Data security exercise. Inside of a closure, create an object called pii
-(Personally Identifiable Information)that cannot be accessed directly.The object should
-have at least two properties: name and ssn.Only the name property should be accessible,
-and it should be called through a public function. The ssn property should not be
-accessible at all. Creating private objects and private properties helps you control
-who has access to what data and helps you prevent people who shouldn't see important
-info like social security numbers from getting access to the data. You can use 'getName'
-or other get methods to access data that people might need.For example, people addressing
-a package or email may need a customer's name, but they definitely shouldn't have
-access to their ssn.*/
-
+console.log(safe());
 
 //VERY HARD
 
-function Person(name, job, age) {
-
+const person = function(name2, job, age){
+    this.name2 = name2;
+    this.job = job;
+    this.age = age;
 }
-new Person('Khayla', 'Programmer', 21);
+const khayla = new person('Khayla', 'Web Developer', 21);
+console.log(khayla);
 
-function Programmer(name, job, age, languages) {
-
+person.exercise = function() {
+    console.log('Running is fun! - said no one ever');
 }
+person.exercise();
 
-/*Object prototype chain and prototypal inheritance exercise.
+person.fetchJob = function(){
+    console.log(`${khayla.name2} is a ${khayla.job}`);
+}
+person.fetchJob();
 
-1. Create a Person constructor that has three properties: name, job, and age.
-2. Give the Person an 'exercise' method that console logs whatever you
-want, e.g. "Running is fun! - said no one ever".
-3. Give the Person a 'fetchJob' method that console logs the person's name and
-job, e.g. "Brad is a back-end developer".
-4. Create a Programmer constructor that inherits all the members from Person
-with an additional 'languages' property that is passed in and a busy property
-that is NOT passed in and is set to true by default.
-5. Give the Programmer a 'completeTask' method that updates the busy property
-on that programmer to be false. Also give the Programmer an 'acceptNewTask'
-method that updates the busy property on that programmer to be true.
-6. Give the Programmer an 'offerNewTask' method that console logs one thing
-if the programmer is busy and another if the programmer is not, e.g. should
-initially log out "Mark can't accept any new tasks right now." and "Mark would
-love to take on a new responsibility." if the programmer is not busy.
-7. Give the Programmer 'learnLanguage' and 'listLanguages' methods that add
-new languages to the programmer and list off all languages the programmer knows.
-8. Test it out - can you create different programmers and run all the methods
-on them? Does each programmer maintain their own properties properly and
-independently of the other programmers?
-Bonus - ES6 Syntax: Use ES6 Syntax in your answer. Feel free to add on new
-methods or properties to incorporate the syntax.*/
 
+
+
+const programmer = function(name2, job, age, [languages]){
+    this.name2 = name2;
+    this.job = job;
+    this.age = age;
+    this.languages = [languages];
+    this.busy = true;
+}
+const khayla1 = new programmer('Khayla', 'Web Developer', 21, ["English"]);
+console.log(khayla1);
+
+programmer.completeTask = function(){
+    console.log(khayla1.busy = false);
+}
+programmer.completeTask();
+
+programmer.acceptNewTask = function(){
+    console.log(khayla1.busy = true);
+}
+programmer.acceptNewTask();
+
+programmer.offerNewTask = function(){
+    if(khayla1.busy = true){
+        console.log(`${khayla1.name2} can't accept any new tasks right now.` );
+    }else{
+        console.log(`${khayla1.name2} would love to take on a new responsibility.`);
+    }
+}
+programmer.offerNewTask();
+
+programmer.learnLanguage = function(){
+    let learn = khayla1.languages;
+    learn.push("Spanish");
+}
+programmer.learnLanguage();
+
+programmer.listLanguages = function(){
+    console.log(khayla1.languages);
+}
+programmer.listLanguages();
 
